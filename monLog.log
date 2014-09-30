@@ -1,0 +1,7 @@
+ERROR:root:Le pourcentage saisi -70 doit être positif!
+ERROR:root:Le pourcentage saisi -70 doit être positif!
+ERROR:root:Le pourcentage doit être inférieur ou égal à 100: 132 est supérieur à 100 !
+ERROR:root:Le pourcentage doit être inférieur ou égal à 100: 100 est supérieur à 100 !
+ERROR:root:La valeur saisie 10,0 n'est psa un entier !
+ERROR:root:La valeur saisie dds n'est psa un entier !
+ERROR:root:La valeur saisie dds n'est psa un entier !

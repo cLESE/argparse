@@ -1,5 +1,6 @@
 import argparse
 import logging
+logging.basicConfig(filename="monLog.log",level=logging.DEBUG)
 parser = argparse.ArgumentParser()
 
 '''argument positionnel'''
@@ -22,16 +23,21 @@ def verifPourcentage(arg):
     try:
         pct=int(arg)
         if (verifPositif(pct) == False):
-            print ("Le pourcentage doit être positive !")
+            print ("Le pourcentage doit être positif !")
+            logging.error("Le pourcentage saisi doit être positif: " + arg + " n'est pas positif !")
             exit(1)
         elif (verifInfCent(pct) == False):
             print ("Le pourcentage doit être inférieur à 100 !")
+            logging.error("Le pourcentage doit être inférieur ou égal à 100: " + arg + " est supérieur à 100 !")
             exit(1)
         else:
             return pct
     except ValueError:
+        pct=(arg)
         print (pct + " n'est pas un entier !")
+        logging.error("La valeur saisie " + arg + " n'est psa un entier !")
         exit(1)
+
 
 
 '''Fonction qui vérifie que le pourcentage est positif'''
@@ -44,7 +50,7 @@ def verifPositif(pct):
 
 '''Fonction qui vérifie que le pourcentage est inférieur à 100'''
 def verifInfCent(pct):
-    if pct < 100:
+    if pct <= 100:
         return True
     else:
         return False
@@ -73,3 +79,4 @@ if args.album:
     print("La playlist contient l'album " + (args.album))
 if args.titre:
     print("La playlist contient le titre " + (args.titre))
+
