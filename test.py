@@ -19,55 +19,47 @@ args = parser.parse_args()
 
 
 '''Fonction de vérification des poucentages'''
-def verifPourcentage(arg):
+def checkArg(arg):
+    logging.info("verifie argument 2")
     try:
-        pct=int(arg)
-        if (verifPositif(pct) == False):
-            print ("Le pourcentage doit être positif !")
-            logging.error("Le pourcentage saisi doit être positif: " + arg + " n'est pas positif !")
-            exit(1)
-        elif (verifInfCent(pct) == False):
-            print ("Le pourcentage doit être inférieur à 100 !")
-            logging.error("Le pourcentage doit être inférieur ou égal à 100: " + arg + " est supérieur à 100 !")
-            exit(1)
-        else:
-            return pct
+        nb = int(arg[1])
+        if nb<0:
+            nb = abs(nb)
+            logging.warning('La quantité saisie doit etre positive')
+            logging.info('Nombre négatif transformé en positif: ' + str(nb))
+        elif nb>100:
+            nb = None
+            logging.warning('La quantité saisie est supérieur à 100')
+            logging.info('Nombre supérieur à 100 transformé en : ' + str(nb))
+        return True
     except ValueError:
-        pct=(arg)
-        print (pct + " n'est pas un entier !")
-        logging.error("La valeur saisie " + arg + " n'est psa un entier !")
+        print ("Impossible de convertir \"" + arg[1] + "\" en nombre entier !")
+        logging.error('Impossible de convertir ' + arg[1] + ' en nombre entier !')
+        logging.debug(' *****************************************')
         exit(1)
 
 
+for ARG in ['titre','genre','sousgenre','artiste','album']:
+    if getattr(args, ARG) is not None:
+        logging.info(' Argument --' + ARG + ' :\t' + getattr(args, ARG)[0] + ' ; ' + getattr(args, ARG)[1])
+# On vérifie que le 2em sous argument de genre est bien un entier naturel
+if checkArg(args.genre) == True:
+    print ('ok')
 
-'''Fonction qui vérifie que le pourcentage est positif'''
-def verifPositif(pct):
-    if pct > 0:
-        return True
-    else:
-        return False
+logging.debug(' *****************************************')
 
-
-'''Fonction qui vérifie que le pourcentage est inférieur à 100'''
-def verifInfCent(pct):
-    if pct <= 100:
-        return True
-    else:
-        return False
-
-
-'''Si les attributs sont renseignés on va vérifier le pourcentage'''
+'''Si les attributs sont renseignés on va vérifier le pourcentage
 if args.genre:
-    verifPourcentage(args.genre[1])
+    checkArg(args.genre[1])
 
 if args.sousgenre:
-    verifPourcentage(args.sousgenre[1])
+    checkArg(args.sousgenre[1])
 
 if args.artiste:
-    verifPourcentage(args.artiste[1])
+    checkArg(args.artiste[1])'''
 
 
-'''Affichage'''
+'''Affichage
 print("Création de la playlist " + (args.nomfichier) + "." + (args.formatfichier) + " d'une durée de " + str(args.temps) + " minutes")
 if args.genre:
     print("La playlist contient " + str(args.genre[1]) + "% du genre " + (args.genre[0]))
@@ -78,5 +70,5 @@ if args.artiste:
 if args.album:
     print("La playlist contient l'album " + (args.album))
 if args.titre:
-    print("La playlist contient le titre " + (args.titre))
+    print("La playlist contient le titre " + (args.titre))'''
 
